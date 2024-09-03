@@ -3,9 +3,8 @@ import telegram
 import codecs
 import os
 
-TOKEN = os.environ.get("BOT_TOKEN")
+TOKEN = os.environ.get("BOT_TOKEN").strip("[").strip("]")
 chat_id = '-1002171838106'
-print(TOKEN)
 
 bot = telegram.Bot(token=TOKEN)
 
