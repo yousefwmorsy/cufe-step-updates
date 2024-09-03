@@ -1,10 +1,11 @@
 import asyncio
 import telegram
 import codecs
+import os
 
-TOKEN = "7475058039:AAG6T4XJp8gLje-AeDpxnPuJeHg_AxknV80"
+TOKEN = os.environ.get("BOT_TOKEN")
 chat_id = '-1002171838106'
-
+print(TOKEN)
 
 bot = telegram.Bot(token=TOKEN)
 
