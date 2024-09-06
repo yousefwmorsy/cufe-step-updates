@@ -108,11 +108,10 @@ def get_newest():
 def job():
     filter_new_updates("previous_announcement.csv", "difference.csv")
 
-schedule.every(20).seconds.do(job)
-
-# Keep the script running
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+if __name__ == "__main__":
+    schedule.every(20).seconds.do(job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
