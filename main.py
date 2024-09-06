@@ -34,7 +34,10 @@ def get_newest():
     images = []
 
     for container in containers:
-        title = container.find_element(by='xpath', value='./p/b').text
+        try:
+            title = container.find_element(by='xpath', value='./p/b').text
+        except:
+            title = container.find_element(by='xpath', value='./p/span/b').text
         subtitle = container.find_element(by='xpath', value='./div/div/p[1]/strong/span').text
         link = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[1]').get_attribute('href')
         try:
@@ -69,8 +72,10 @@ def get_newest():
     df_headlines = pd.DataFrame(my_dict)
     file_name = 'previous_announcement.csv'
 
-    final_path = os.path.join(app_path, file_name)
-    df_headlines.to_csv(final_path)
+    final_path = os.path.join(app_path, file_name) #exe
+    df_headlines.to_csv(final_path) #exe
+
+    #df_headlines.to_csv(file_name)
 
 
 get_newest()
