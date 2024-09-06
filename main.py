@@ -35,7 +35,8 @@ def filter_new_updates(previous, output_file):
 def get_newest():
     logging.info("get_newest called")
     website = 'https://eng.cu.edu.eg/ar/credit-hour-system/'
-    path = "D:\Yousef\Downloads\chromedriver-win32\chromedriver-win32\chromedriver.exe"
+    # Path to ChromeDriver
+    path = "/home/site/wwwroot/chromedriver"
 
     options = Options()
     options.headless = True
