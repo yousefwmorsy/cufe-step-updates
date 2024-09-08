@@ -36,7 +36,7 @@ def get_newest():
     logging.info("get_newest called")
     website = 'https://eng.cu.edu.eg/ar/credit-hour-system/'
     # Path to ChromeDriver
-    path = "/home/site/wwwroot/chromedriver"
+    path = "D:\Yousef\Downloads\chromedriver-win32\chromedriver-win32\chromedriver.exe"
 
     options = Options()
     options.headless = True
@@ -93,8 +93,9 @@ def get_newest():
     my_dict = {'title': titles, 'subtitle': subtitles, 'link': links, 'link2': links2, 'link3': links3, 'image': images}
     df_headlines = pd.DataFrame(my_dict)
     file_name = 'previous_announcement.csv'
-    df_headlines.to_csv(file_name, index=False)
-
+    final_path = os.path.join(app_path, file_name)  # exe
+    df_headlines.to_csv(final_path, index=False)
+    #df_headlines.to_csv(file_name, index=False)
 def job():
     logging.info("job called")
     filter_new_updates("previous_announcement.csv", "difference.csv")
