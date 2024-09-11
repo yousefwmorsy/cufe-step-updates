@@ -24,8 +24,12 @@ def filter_new_updates(previous, output_file):
     logging.info("filter_new_updates called")
     logging.info("Program Run")
     previous_updates = pd.read_csv(previous)
-    get_newest()
-    new_updates = pd.read_csv(previous)
+    new_updates = get_newest()
+
+    if new_updates.empty:
+        logging.info("No new updates found.")
+        return
+
     diff = new_updates.merge(previous_updates, indicator=True, how='outer').loc[lambda x: x['_merge'] != 'both']
 
     if not diff.empty:
@@ -36,8 +40,7 @@ def get_newest():
     logging.info("get_newest called")
     website = 'https://eng.cu.edu.eg/ar/credit-hour-system/'
     # Path to ChromeDriver
-    path = "D:\Yousef\Downloads\chromedriver-win32\chromedriver-win32\chromedriver.exe"
-
+    path = ".\chromedriver-win32\chromedriver-win32\chromedriver.exe"
     options = Options()
     options.headless = True
     options.add_argument("--headless=new")
@@ -92,17 +95,20 @@ def get_newest():
     driver.quit()
     my_dict = {'title': titles, 'subtitle': subtitles, 'link': links, 'link2': links2, 'link3': links3, 'image': images}
     df_headlines = pd.DataFrame(my_dict)
-    file_name = 'previous_announcement.csv'
-    final_path = os.path.join(app_path, file_name)  # exe
-    df_headlines.to_csv(final_path, index=False)
-    #df_headlines.to_csv(file_name, index=False)
+    if not df_headlines.empty:
+        file_name = 'previous_announcement.csv'
+        final_path = os.path.join(app_path, file_name)  # exe
+        df_headlines.to_csv(final_path, index=False)
+        #df_headlines.to_csv(file_name, index=False)
+        return df_headlines
 def job():
     logging.info("job called")
     filter_new_updates("previous_announcement.csv", "difference.csv")
 
 if __name__ == "__main__":
     logging.info("Script started")
-    schedule.every(20).seconds.do(job)
+    job()
+    schedule.every(20).minutes.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)

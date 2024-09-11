@@ -20,7 +20,7 @@ async def send_photo(photo, chat_id):
 def send_msg(csv):
     with codecs.open(csv, encoding='utf-8') as file:
         content = file.readlines()
-        for line in content[1:]:
+        for line in reversed(content[1:]):
             data = line.strip().split(",")
             title = data[0]
             subtitle = data[1]
