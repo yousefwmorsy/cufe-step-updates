@@ -24,7 +24,7 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-          BOT_TOKEN: ${{ secrets.SOME_SECRET }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: python main.py
 
       - name: commit files
