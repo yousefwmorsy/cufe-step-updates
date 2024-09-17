@@ -2,11 +2,14 @@ name: run main.py
 
 on:
   schedule:
-    - cron: '0 */2 * * *' 
+    - cron: '0 */1 * * *' 
 
 jobs:
+  
   build:
     runs-on: windows-latest
+    permissions:
+      actions: read|write|none
     steps:
 
       - name: checkout repo content
