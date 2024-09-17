@@ -42,9 +42,16 @@ def get_newest():
     # Path to ChromeDriver
     path = ".\chromedriver-win32\chromedriver-win32\chromedriver.exe"
     options = Options()
-    options.headless = True
-    options.add_argument("--headless=new")
-
+    #options.headless = True
+    #options.add_argument("--headless=new")
+    options.add_argument('--no-sandbox')
+    options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("start-maximized") 
+    options.add_argument("disable-infobars")
+    options.add_argument("--disable-extensions") 
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-dev-shm-usage")
     driver_service = Service(executable_path=path)
     driver = webdriver.Chrome(service=driver_service, options=options)
     driver.get(website)
@@ -97,9 +104,9 @@ def get_newest():
     df_headlines = pd.DataFrame(my_dict)
     if not df_headlines.empty:
         file_name = 'previous_announcement.csv'
-        final_path = os.path.join(app_path, file_name)  # exe
-        df_headlines.to_csv(final_path, index=False)
-        #df_headlines.to_csv(file_name, index=False)
+        #final_path = os.path.join(app_path, file_name)  # exe
+        #df_headlines.to_csv(final_path, index=False)
+        df_headlines.to_csv(file_name, index=False)
         return df_headlines
 def job():
     logging.info("job called")
