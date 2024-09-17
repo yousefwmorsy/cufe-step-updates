@@ -108,14 +108,18 @@ def get_newest():
         #df_headlines.to_csv(final_path, index=False)
         df_headlines.to_csv(file_name, index=False)
         return df_headlines
-def job():
+'''def job():
     logging.info("job called")
-    filter_new_updates("previous_announcement.csv", "difference.csv")
+    filter_new_updates("previous_announcement.csv", "difference.csv")'''
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
     logging.info("Script started")
     job()
     schedule.every(20).minutes.do(job)
     while True:
         schedule.run_pending()
-        time.sleep(1)
+        time.sleep(1)'''
+
+
+logging.info("Script started")
+filter_new_updates("previous_announcement.csv", "difference.csv")
