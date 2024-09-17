@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      actions: read|write|none
+      actions: write
     steps:
 
       - name: checkout repo content
