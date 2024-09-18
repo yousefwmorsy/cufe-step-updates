@@ -40,7 +40,8 @@ def get_newest():
     logging.info("get_newest called")
     website = 'https://eng.cu.edu.eg/ar/credit-hour-system/'
     # Path to ChromeDriver
-    path = ".\chromedriver-win32\chromedriver-win32\chromedriver.exe"
+    #path = ".\chromedriver-win32\chromedriver-win32\chromedriver.exe"
+    path = "./chromedriver_linux64/chromedriver"
     options = Options()
     #options.headless = True
     #options.add_argument("--headless=new")
