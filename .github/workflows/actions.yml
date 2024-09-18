@@ -1,11 +1,11 @@
 name: run main.py
 on:
   schedule:
-    - cron: '0,20,30 6-20 * * *' 
+    - cron: '0,30 6-19 * * *' 
 jobs:
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions: write-all
     steps:
 
