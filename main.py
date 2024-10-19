@@ -41,7 +41,8 @@ def get_newest():
     website = 'https://eng.cu.edu.eg/ar/credit-hour-system/'
     # Path to ChromeDriver
     #path = ".\chromedriver-win32\chromedriver-win32\chromedriver.exe"
-    path = os.environ.get("CHROMEWEBDRIVER")
+    path = "C:\SeleniumWebDrivers\ChromeDriver\chromedriver.exe"
+    #path = os.environ.get("CHROMEWEBDRIVER")
     options = Options()
     #options.headless = True
     #options.add_argument("--headless=new")
