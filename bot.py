@@ -22,9 +22,9 @@ def send_msg(csv):
         content = file.readlines()
         for line in content[1:]:
             data = line.strip().split(",")
-            title = data[0]
-            subtitle = data[1]
-            link = data[2]
+            title = data[0] if data[0] else ""
+            subtitle = data[1] if data[1] else ""
+            link = data[2] if data[2] else ""
             link2 = data[3] if data[3] else ""
             link3 = data[4] if data[4] else ""
             image = data[5] if data[5] else ""
