@@ -5,7 +5,7 @@ import os
 
 
 TOKEN = os.environ.get("BOT_TOKEN")
-chat_id = '-1002384509516'
+chat_id = '-1002171838106'
 
 bot = telegram.Bot(token=TOKEN)
 
