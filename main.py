@@ -30,8 +30,9 @@ def filter_new_updates(previous, output_file):
         logging.info("No new updates found.")
         return
 
-    diff = new_updates.merge(previous_updates, indicator=True, how='outer').loc[lambda x: x['_merge'] != 'both']
-
+    diff = pd.concat([new_updates['link'],previous_updates['link']]).drop_duplicates(keep=False)
+    diff = pd.merge(new_updates, diff, indicator=True, on='link',  how='inner')
+    
     if not diff.empty:
         diff.to_csv(output_file, index=False)
         send_msg(u"difference.csv")
@@ -69,33 +70,51 @@ def get_newest():
 
     for container in containers[1:]:
         try:
-            title = container.find_element(by='xpath', value='./p/b').text
+            title = container.find_element(by='xpath', value='./p/b').text.replace('"', '')
         except:
-            title = container.find_element(by='xpath', value='./p/span/b').text
-        subtitle = container.find_element(by='xpath', value='./div/div/p[1]/strong/span').text
-        link = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[1]').get_attribute('href')
+            try:
+                title = container.find_element(by='xpath', value='./p/span/b').text.replace('"', '')
+            except:
+                try:
+                    title = container.find_element(by='xpath', value="./p/span/b/text()[1]").text.replace('"', '') + container.find_element(by='xpath', value="./p/span/b/text()[2]").text.replace('"', '')
+                except:
+                    try:
+                        title = container.find_element(by='xpath', value="./p[1]/span/span/b").text.replace('"', '') + container.find_element(by='xpath', value="./p[2]/span/strong").text.replace('"', '')
+                    except:
+                        try:
+                            title = container.find_element(by='xpath', value="./p/span/span/b").text.replace('"', '')
+                        except:
+                            title = "ERR"
+        try:
+            subtitle = container.find_element(by='xpath', value='./div/div/p[1]/strong/span').text.replace('"', '')
+        except:
+            subtitle = "ERR"
+        try:
+            link = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[1]').get_attribute('href')
+        except:
+            link = ""
         try:
             link2 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[2]').get_attribute('href')
         except:
-            link2 = None
+            link2 = ""
 
         try:
             link3 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[3]').get_attribute('href')
         except:
-            link3 = None
+            link3 = ""
 
         try:
             link4 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[4]').get_attribute('href')
         except:
-            link4 = None
+            link4 = ""
 
         try:
             image = container.find_element(by='xpath', value='./p[1]/a/img').get_attribute('src')
         except:
-            image = None
+            image = ""
 
-        titles.append(title)
-        subtitles.append(subtitle)
+        titles.append(title.replace("\n", " ").replace("'", ""))
+        subtitles.append(subtitle.replace("\n", " ").replace("'", ""))
         links.append(link)
         links2.append(link2)
         links3.append(link3)
