@@ -68,7 +68,7 @@ def get_newest():
     links4 = []
     images = []
 
-    for container in containers[1:]:
+    for container in containers[1:-1]:
         try:
             title = container.find_element(by='xpath', value='./p/b').text.replace('"', '')
         except:
