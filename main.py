@@ -26,7 +26,7 @@ def filter_new_updates(previous, output_file):
     previous_updates = pd.read_csv(previous)
     new_updates = get_newest()
 
-    if new_updates.empty:
+    if new_updates.empty or len(new_updates) < len(previous_updates):
         logging.info("No new updates found.")
         return
 
