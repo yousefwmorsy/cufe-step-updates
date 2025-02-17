@@ -26,7 +26,7 @@ def filter_new_updates(previous, output_file):
     previous_updates = pd.read_csv(previous)
     new_updates = get_newest()
 
-    if new_updates.empty or len(new_updates) < len(previous_updates):
+    if new_updates.empty or len(new_updates) <= len(previous_updates):
         logging.info("No new updates found.")
         return
 
@@ -88,11 +88,17 @@ def get_newest():
         try:
             subtitle = container.find_element(by='xpath', value='./div/div/p[1]/strong/span').text.replace('"', '')
         except:
-            subtitle = "ERR"
+            try:
+                subtitle = container.find_element(by='xpath', value='./div/div/p[2]/strong/span').text.replace('"', '')
+            except:
+                subtitle = "ERR"
         try:
             link = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[1]').get_attribute('href')
         except:
-            link = ""
+            try:
+                link = container.find_element(by='xpath', value='./div/div/p[3]/strong/a').get_attribute('href')
+            except:
+                link = ""
         try:
             link2 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[2]').get_attribute('href')
         except:
