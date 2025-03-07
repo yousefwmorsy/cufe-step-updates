@@ -69,17 +69,21 @@ def get_newest():
     images = []
 
     for container in containers[1:-1]:
-        try:
+                try:
             title = container.find_element(by='xpath', value='./p/b').text.replace('"', '')
         except:
             try:
                 title = container.find_element(by='xpath', value='./p/span/b').text.replace('"', '')
             except:
                 try:
-                    title = container.find_element(by='xpath', value="./p/span/b/text()[1]").text.replace('"', '') + container.find_element(by='xpath', value="./p/span/b/text()[2]").text.replace('"', '')
+                    title = container.find_element(by='xpath', value="./p/span/b/text()[1]").text.replace('"',
+                                                                                                          '') + container.find_element(
+                        by='xpath', value="./p/span/b/text()[2]").text.replace('"', '')
                 except:
                     try:
-                        title = container.find_element(by='xpath', value="./p[1]/span/span/b").text.replace('"', '') + container.find_element(by='xpath', value="./p[2]/span/strong").text.replace('"', '')
+                        title = container.find_element(by='xpath', value="./p[1]/span/span/b").text.replace('"',
+                                                                                                            '') + container.find_element(
+                            by='xpath', value="./p[2]/span/strong").text.replace('"', '')
                     except:
                         try:
                             title = container.find_element(by='xpath', value="./p/span/span/b").text.replace('"', '')
@@ -91,18 +95,27 @@ def get_newest():
             try:
                 subtitle = container.find_element(by='xpath', value='./div/div/p[2]/strong/span').text.replace('"', '')
             except:
-                subtitle = "ERR"
+                    try:
+                        subtitle = container.find_element(by='xpath', value='./p[2]/strong/span').text.replace('"', '')
+                    except:
+                        subtitle = "ERR"
         try:
             link = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[1]').get_attribute('href')
         except:
             try:
                 link = container.find_element(by='xpath', value='./div/div/p[3]/strong/a').get_attribute('href')
             except:
-                link = ""
+                try:
+                    link = container.find_element(by='xpath', value='./div/p/strong/a').get_attribute('href')
+                except:
+                    link = ""
         try:
             link2 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[2]').get_attribute('href')
         except:
-            link2 = ""
+            try:
+                link2 = container.find_element(by='xpath', value='./div/p/strong/a[2]').get_attribute('href')
+            except:
+                link2 = ""
 
         try:
             link3 = container.find_element(by='xpath', value='./div/div/p[2]/strong/a[3]').get_attribute('href')
@@ -117,7 +130,10 @@ def get_newest():
         try:
             image = container.find_element(by='xpath', value='./p[1]/a/img').get_attribute('src')
         except:
-            image = ""
+            try:
+                image = container.find_element(by='xpath', value='./p[1]/img').get_attribute('src')
+            except:
+                image = ""
 
         titles.append(title.replace("\n", " ").replace("'", ""))
         subtitles.append(subtitle.replace("\n", " ").replace("'", ""))
