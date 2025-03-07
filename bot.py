@@ -4,7 +4,7 @@ import codecs
 import os
 
 
-TOKEN = os.environ.get("BOT_TOKEN")
+TOKEN = os.environ.get("BOT_TOKEN2")
 chat_id = '-1002171838106'
 
 bot = telegram.Bot(token=TOKEN)
